@@ -22,3 +22,5 @@ To use this repo I reccomend to install anaconda:
     
     cd bin
     python ml-models.py
+
+If you want to know want the script doing, see the comments in: https://github.com/amlarraz/ml-models/blob/master/bin/ml-models.py
