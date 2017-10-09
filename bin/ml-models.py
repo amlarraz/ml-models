@@ -116,7 +116,45 @@ print 'Report Decision Random Forest:'
 print ''
 print(classification_report(y_val, y_pred))
 
-# 5.- Neuronal Network:
+# 5.- Neuronal Network: (https://en.wikipedia.org/wiki/Artificial_neural_network)
+
+#-----USING SKLEARN LIBRARY:
+
+#Import the model:
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+
+#Standarize the data because the NN is sensitive to feature scaling:
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_trainScal = scaler.transform(X_train)
+#If you want to change some of this hiperparameters see:
+# http://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html
+NN = MLPClassifier(activation = 'relu', solver='lbfgs', learning_rate = 'adaptive', alpha=1e-4, max_iter = 200, hidden_layer_sizes=(5, 10), random_state=1)
+
+print 'Hiperparramaters defined in Neuronal Network:'
+print NN
+print ''
+
+NN.fit(X_trainScal, y_train)
+
+#Make predictions in validation set:
+X_valScal = scaler.transform(X_val)
+y_pred = NN.predict(X_valScal)
+
+#Create the confussion Matrix:
+#[[True Negatives, False Negatives]]
+#[[False Positives, True Positives]]
+print 'Confusion Matrix Neuronal Network:'
+print ''
+print confusion_matrix(y_pred, y_val)
+print ''
+print 'Report Decision Neuronal Network:'
+print ''
+print(classification_report(y_val, y_pred))
+
+#-----------USING TENSORFLOW LIBRARY: (In progress...)
+'''
 #We're going to describe this model using Tensorflow, then, import tensorflow:
 import tensorflow as tf
 
@@ -224,3 +262,4 @@ f1_score = 2*((precision*recall)/(precision + recall))
 print 'Precision:', int(100*precision)
 print 'Recall:', int(100*recall)
 print 'F1-score:',int(100*f1_score)
+'''
